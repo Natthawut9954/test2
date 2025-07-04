@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>สรุปข้อมูลนักเรียนรายวันแยกตามชั้น</title>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <style>
+    body {
+      font-family: 'Prompt', sans-serif;
+      background-color: #f5f7fa;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 900px;
+      width: 100%;
+      background: #fff;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      text-align: center;
+      margin-bottom: 30px; /* เพิ่มระยะห่างด้านล่าง */
+    }
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+    .controls {
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .controls label, .controls select, .controls input[type="date"] {
+      font-size: 1.1em;
+      padding: 8px 12px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      font-family: 'Prompt', sans-serif;
+      cursor: pointer;
+    }
+    .loading, .error-message, .no-data {
+      margin-top: 20px;
+      font-size: 1.1em;
+      color: #555;
+    }
+    .error-message {
+      color: red;
+    }
+    .no-data {
+        color: #777;
+        font-style: italic;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: center;
+    }
+    th {
+      background-color: #e0f2f7;
+      color: #2c3e50;
+      font-weight: bold;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    tr:hover {
+      background-color: #e9e9e9;
+    }
+
+    /* สไตล์สำหรับกราฟ */
+    .chart-container {
+      max-width: 900px;
+      width: 100%;
+      background: #fff;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      margin-top: 20px;
+      text-align: center;
+    }
+    /* สไตล์สำหรับกราฟ */
+.chart-container {
+  max-width: 900px;
+  width: 100%;
+  background: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* เพิ่มหรือแก้ไขส่วนนี้ */
+#attendanceChart {
+  width: 100% !important; /* ให้แน่ใจว่ากว้างเต็ม container */
+  height: 400px; /* กำหนดความสูงที่แน่นอน เช่น 400px หรือปรับตามที่ต้องการ */
+  max-height: 500px; /* สามารถจำกัดความสูงสูงสุดได้ด้วย */
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📝 สรุปข้อมูลนักเรียนรายวันแยกตามชั้น</h1>
+
+    <div class="controls">
+      <label for="summaryDate">เลือกวันที่:</label>
+      <input type="date" id="summaryDate">
+
+      <label for="classSelect">เลือกชั้นเรียน:</label>
+      <select id="classSelect">
+        <option value="All">ทุกชั้น</option>
+        <option value="ม.1/1">ม.1/1</option>
+        <option value="ม.1/2">ม.1/2</option>
+        <option value="ม.2/1">ม.2/1</option>
+        <option value="ม.2/2">ม.2/2</option>
+        <option value="ม.2/3">ม.2/3</option>
+        <option value="ม.3/1">ม.3/1</option>
+        <option value="ม.3/2">ม.3/2</option>
+        <option value="ม.4/1">ม.4/1</option>
+        <option value="ม.4/2">ม.4/2</option>
+        <option value="ม.5/1">ม.5/1</option>
+        <option value="ม.5/2">ม.5/2</option>
+        <option value="ม.6/1">ม.6/1</option>
+        <option value="ม.6/2">ม.6/2</option>
+        <option value="ม.6/3">ม.6/3</option>
+      </select>
+    </div>
+
+    <div class="loading" id="loadingMessage" style="display: none;">กำลังโหลดข้อมูล...</div>
+    <div class="error-message" id="errorMessage" style="display: none;"></div>
+    <div class="no-data" id="noDataMessage" style="display: none;">ไม่มีข้อมูลสำหรับวันที่และชั้นเรียนที่เลือก</div>
+
+    <table id="summaryTable" style="display: none;">
+      <thead>
+        <tr>
+          <th>ชั้นเรียน</th>
+          <th>จำนวนนักเรียนทั้งหมด</th>
+          <th>มา</th>
+          <th>ขาด</th>
+          <th>ลา</th>
+          <th>มาสาย</th>
+        </tr>
+      </thead>
+      <tbody>
+        </tbody>
+    </table>
+  </div>
+
+  <div class="chart-container" id="attendanceChartContainer" style="display: none;">
+    <h2>📊 สรุปการเช็คชื่อรายวัน (กราฟ)</h2>
+    <canvas id="attendanceChart"></canvas>
+  </div>
+  <script>
+    // *** สำคัญ: แทนที่ด้วย Web app URL ที่คุณได้จาก Google Apps Script ***
+    const API_ENDPOINT = 'https://script.google.com/macros/s/AKfycbx1sSYDKn0C6Q5bYhDoOhymeHhaY0eXuGk12tR2HgA_XDscA3jJYeMEd0Tbzz7iTNjq/exec'; 
+
+    const summaryDateInput = document.getElementById('summaryDate');
+    const classSelect = document.getElementById('classSelect');
+    const loadingMessage = document.getElementById('loadingMessage');
+    const errorMessage = document.getElementById('errorMessage');
+    const noDataMessage = document.getElementById('noDataMessage');
+    const summaryTable = document.getElementById('summaryTable');
+    const summaryTableBody = summaryTable.querySelector('tbody');
+    const attendanceChartContainer = document.getElementById('attendanceChartContainer');
+    const attendanceChartCanvas = document.getElementById('attendanceChart');
+
+    let myChart = null; // ตัวแปรสำหรับเก็บ instance ของ Chart.js
+
+    // ตั้งค่าวันที่เริ่มต้นเป็นวันปัจจุบัน
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    summaryDateInput.value = `${year}-${month}-${day}`;
+
+    async function fetchAndDisplayDailySummary() {
+      loadingMessage.style.display = 'block';
+      errorMessage.style.display = 'none';
+      noDataMessage.style.display = 'none';
+      summaryTable.style.display = 'none';
+      attendanceChartContainer.style.display = 'none'; // ซ่อนกราฟก่อน
+      summaryTableBody.innerHTML = ''; // เคลียร์ข้อมูลเก่า
+
+      // ทำลายกราฟเก่าถ้ามีอยู่
+      if (myChart) {
+        myChart.destroy();
+      }
+
+      const selectedDate = summaryDateInput.value;
+      const selectedClass = classSelect.value;
+
+      try {
+        let url = `${API_ENDPOINT}?date=${selectedDate}`;
+        if (selectedClass !== 'All') {
+          url += `&class=${selectedClass}`;
+        }
+        
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json(); // คาดหวัง array ของ summary objects
+
+        if (data.error) {
+            errorMessage.textContent = `ข้อผิดพลาด: ${data.error}`;
+            errorMessage.style.display = 'block';
+            return;
+        }
+
+        if (data.length === 0) {
+            noDataMessage.style.display = 'block';
+            return;
+        }
+
+        // แสดงตารางและเพิ่มข้อมูล
+        summaryTable.style.display = 'table';
+        data.forEach(item => {
+          const row = summaryTableBody.insertRow();
+          row.insertCell().textContent = item.className;
+          row.insertCell().textContent = item.totalStudents;
+          row.insertCell().textContent = item.present;
+          row.insertCell().textContent = item.absent;
+          row.insertCell().textContent = item.leave;
+          row.insertCell().textContent = item.late;
+        });
+
+        // --- สร้างกราฟจากข้อมูลจริง ---
+        attendanceChartContainer.style.display = 'block'; // แสดง container ของกราฟ
+
+        const classNames = data.map(item => item.className);
+        const presentCounts = data.map(item => item.present);
+        const absentCounts = data.map(item => item.absent);
+        const leaveCounts = data.map(item => item.leave);
+        const lateCounts = data.map(item => item.late);
+
+        const chartData = {
+          labels: classNames,
+          datasets: [
+            {
+              label: 'มา',
+              data: presentCounts,
+              backgroundColor: '#4CAF50', // เขียว
+              borderColor: '#4CAF50',
+              borderWidth: 1
+            },
+            {
+              label: 'ขาด',
+              data: absentCounts,
+              backgroundColor: '#F44336', // แดง
+              borderColor: '#F44336',
+              borderWidth: 1
+            },
+            {
+              label: 'ลา',
+              data: leaveCounts,
+              backgroundColor: '#FFEB3B', // เหลือง
+              borderColor: '#FFEB3B',
+              borderWidth: 1
+            },
+            {
+              label: 'มาสาย',
+              data: lateCounts,
+              backgroundColor: '#2196F3', // น้ำเงิน
+              borderColor: '#2196F3',
+              borderWidth: 1
+            }
+          ]
+        };
+
+        const chartOptions = {
+          responsive: true,
+          maintainAspectRatio: false, // เพื่อควบคุมความสูง
+          plugins: {
+            title: {
+              display: true,
+              text: `สรุปการเช็คชื่อวันที่ ${selectedDate} ${selectedClass === 'All' ? '(ทุกชั้น)' : `(${selectedClass})`}`
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'จำนวนนักเรียน'
+              }
+            },
+            x: {
+              title: {
+                display: true,
+                text: 'ชั้นเรียน'
+              }
+            }
+          }
+        };
+
+        myChart = new Chart(attendanceChartCanvas, {
+          type: 'bar',
+          data: chartData,
+          options: chartOptions
+        });
+
+      } catch (error) {
+        console.error('Error fetching daily summary:', error);
+        errorMessage.textContent = 'ไม่สามารถดึงข้อมูลได้ โปรดตรวจสอบการเชื่อมต่อหรือข้อมูลใน Google Sheet';
+        errorMessage.style.display = 'block';
+      } finally {
+        loadingMessage.style.display = 'none';
+      }
+    }
+
+    // เมื่อเปลี่ยนวันที่หรือเลือกชั้นเรียนใหม่
+    summaryDateInput.addEventListener('change', fetchAndDisplayDailySummary);
+    classSelect.addEventListener('change', fetchAndDisplayDailySummary);
+
+    // โหลดข้อมูลเมื่อหน้าเว็บโหลดเสร็จครั้งแรก (สำหรับวันปัจจุบันและทุกชั้น)
+    document.addEventListener('DOMContentLoaded', fetchAndDisplayDailySummary);
+  </script>
+</body>
+</html>
