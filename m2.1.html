@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบเช็คชื่อ ม.2/1</title>
+    <link rel="stylesheet" href="class.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pormtt&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h2>🏫 ระบบเช็คชื่อนักเรียนหน้าเสาธงชั้น ม.2/1</h2>
+    </div>
+
+    <div class="controls-top">
+        <input type="text" id="searchInput" placeholder="🔍 ค้นหาชื่อนักเรียน...">
+        <a href="index.html" class="button back-button">❮ กลับหน้าแรก</a>
+    </div>
+
+    <div class="table-responsive">
+        <table id="attendanceTable">
+            <thead>
+                <tr>
+                    <th>ลำดับ</th>
+                    <th>ชื่อ</th>
+                    <th>สถานะ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-student-id="1">
+                    <td>1</td>
+                    <td>เด็กชาย อนุกูล สูญกลาง</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="2">
+                    <td>2</td>
+                    <td>เด็กชาย ธนกฤต พุตจันทึก</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="3">
+                    <td>3</td>
+                    <td>เด็กชาย ถิรวัฒน์ เสริญกล่ำ</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="4">
+                    <td>4</td>
+                    <td>เด็กชาย วชิรวิชญ์ ทุมบุญ</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="5">
+                    <td>5</td>
+                    <td>เด็กชาย ธนพนธ์ พาหัน</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="6">
+                    <td>6</td>
+                    <td>เด็กชาย ธนวินท์ ดีการนา</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="7">
+                    <td>7</td>
+                    <td>เด็กชาย ธีรโชติ วิเศษชาติ</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="8">
+                    <td>8</td>
+                    <td>เด็กชาย ธีรเทพ ถมกิ่ง</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="9">
+                    <td>9</td>
+                    <td>เด็กชาย ภูวนัย บุญศิริ</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="10">
+                    <td>10</td>
+                    <td>เด็กหญิง ปุณยาพร พลังมาก</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="11">
+                    <td>11</td>
+                    <td>เด็กหญิง พิมพ์อัปสร วงษ์ประทุม</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="12">
+                    <td>12</td>
+                    <td>เด็กหญิง พัชรกัญญ์ บุญเผิง</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="13">
+                    <td>13</td>
+                    <td>เด็กหญิง เมธิกา ทองสิงหา</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="14">
+                    <td>14</td>
+                    <td>เด็กหญิง ศุภิสรา บำรุงทอง</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="15">
+                    <td>15</td>
+                    <td>เด็กหญิง ปนัดดา บัวรัตน์</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="16">
+                    <td>16</td>
+                    <td>เด็กหญิง ศรัญญา ใจเรือง</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="17">
+                    <td>17</td>
+                    <td>เด็กหญิง สุภาพร สารวงค์</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="18">
+                    <td>18</td>
+                    <td>เด็กหญิง ณัฏฐณิชา แสงกระจ่าง</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="19">
+                    <td>19</td>
+                    <td>เด็กหญิง กัญญาพัชร บุตรดี</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="20">
+                    <td>20</td>
+                    <td>เด็กหญิง กัลยรัตน์ เคณคูณ</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="21">
+                    <td>21</td>
+                    <td>เด็กหญิง จินต์จุฑา ปิ่นปก</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="22">
+                    <td>22</td>
+                    <td>เด็กหญิง ปุณณดา ปิ่นปก</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="23">
+                    <td>23</td>
+                    <td>เด็กหญิง ปุณยวีย์ พระวิสัตย์</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="24">
+                    <td>24</td>
+                    <td>เด็กหญิง พิชญธิดา บุดตะโช</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="25">
+                    <td>25</td>
+                    <td>เด็กหญิง มณีรัตน์ รักจันทึก</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-student-id="26">
+                    <td>26</td>
+                    <td>เด็กหญิง อามีน่า บัวไขย์</td>
+                    <td>
+                        <div class="status-buttons">
+                            <div class="status-option" data-status="✅ มา">✅ มา</div>
+                            <div class="status-option" data-status="❌ ขาด">❌ ขาด</div>
+                            <div class="status-option" data-status="📝 ลา">📝 ลา</div>
+                            <div class="status-option" data-status="⏰ มาสาย">⏰ มาสาย</div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="controls-bottom">
+        <button onclick="exportTableToExcel()" class="button excel-button">📄 ส่งออก Excel</button>
+        <button onclick="saveToGoogleSheet()" class="button google-sheet-button">📤 บันทึกข้อมูลไปยัง Google Sheet</button>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const rows = document.querySelectorAll("#attendanceTable tbody tr");
+        rows.forEach(row => {
+            const studentId = row.dataset.studentId;
+            const statusButtons = row.querySelectorAll('.status-option');
+
+            // โหลดสถานะจาก localStorage สำหรับ ม.2/1 (ใช้ key ที่แตกต่างกัน)
+            const savedStatus = localStorage.getItem(`status_M2_1_${studentId}`);
+            if (savedStatus) {
+                statusButtons.forEach(btn => btn.classList.remove('active', 'status-มา', 'status-ขาด', 'status-ลา', 'status-มาสาย'));
+                const activeBtn = row.querySelector(`.status-option[data-status="${savedStatus}"]`);
+                if (activeBtn) {
+                    activeBtn.classList.add('active');
+                    updateStatusButtonClass(activeBtn, savedStatus);
+                }
+            }
+
+            // เพิ่ม Event Listener ให้ปุ่มสถานะแต่ละปุ่ม
+            statusButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const currentStatus = event.target.dataset.status;
+                    const currentRow = event.target.closest('tr');
+                    const currentStudentId = currentRow.dataset.studentId;
+
+                    currentRow.querySelectorAll('.status-option').forEach(btn => {
+                        btn.classList.remove('active', 'status-มา', 'status-ขาด', 'status-ลา', 'status-มาสาย');
+                    });
+
+                    event.target.classList.add('active');
+                    updateStatusButtonClass(event.target, currentStatus);
+
+                    // บันทึกสถานะลง localStorage (ใช้ key ที่แตกต่างกันสำหรับ ม.2/1)
+                    localStorage.setItem(`status_M2_1_${currentStudentId}`, currentStatus);
+                });
+            });
+        });
+
+        // ค้นหาชื่อนักเรียนแบบทันที
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const searchText = this.value.toLowerCase();
+            const allRows = document.querySelectorAll("#attendanceTable tbody tr");
+
+            allRows.forEach(row => {
+                const name = row.querySelector("td:nth-child(2)").textContent.toLowerCase();
+                if (name.includes(searchText)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+    });
+
+    // ฟังก์ชันช่วยในการจัดการคลาสสีของปุ่มสถานะ
+    function updateStatusButtonClass(button, status) {
+        button.classList.remove('status-มา', 'status-ขาด', 'status-ลา', 'status-มาสาย');
+
+        switch (status) {
+            case '✅ มา':
+                button.classList.add('status-มา');
+                break;
+            case '❌ ขาด':
+                button.classList.add('status-ขาด');
+                break;
+            case '📝 ลา':
+                button.classList.add('status-ลา');
+                break;
+            case '⏰ มาสาย':
+                button.classList.add('status-มาสาย');
+                break;
+        }
+    }
+
+    function exportTableToExcel() {
+        const table = document.querySelector("#attendanceTable");
+        const rows = table.querySelectorAll("tbody tr");
+
+        const data = [["ลำดับ", "ชื่อ - สกุล", "สถานะ"]];
+
+        rows.forEach(row => {
+            const index = row.querySelector("td:nth-child(1)").textContent.trim();
+            const name = row.querySelector("td:nth-child(2)").textContent.trim();
+            const activeStatusButton = row.querySelector(".status-option.active");
+            const status = activeStatusButton ? activeStatusButton.dataset.status : "";
+
+            data.push([index, name, status]);
+        });
+
+        const worksheet = XLSX.utils.aoa_to_sheet(data);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "เช็คชื่อ ม.2.1"); // Sheet name for M.2/1
+
+        XLSX.writeFile(workbook, "รายงานเช็คชื่อ ม.2-1.xlsx"); // File name for M.2/1
+    }
+
+    async function saveToGoogleSheet() {
+        // **แทนที่ด้วย Web app URL ที่คุณได้จาก Apps Script Deploy สำหรับชีท ม.2/1**
+        // (URL นี้ควรจะเป็นคนละอันกับของ ม.1/1 ถ้าคุณต้องการแยกข้อมูล)
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbywf5mg50O0yRnY_olPAd7k8TECFXYaoWgkY4lPKyJHwsZhZRYe0hRfPIb9JLbG-W4c/exec'; // Original URL for M.2/1
+
+        const table = document.querySelector("#attendanceTable");
+        const rows = table.querySelectorAll("tbody tr");
+
+        const dataToSave = [];
+        rows.forEach(row => {
+            const index = row.querySelector("td:nth-child(1)").textContent.trim();
+            const name = row.querySelector("td:nth-child(2)").textContent.trim();
+            const activeStatusButton = row.querySelector(".status-option.active");
+            const status = activeStatusButton ? activeStatusButton.dataset.status : "";
+
+            dataToSave.push({ index, name, status });
+        });
+
+        try {
+            const response = await fetch(WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataToSave),
+            });
+            rows.forEach(row => {
+                const studentId = row.dataset.studentId;
+                localStorage.removeItem(`status_M2_1_${studentId}`); // Clear local storage for M.2/1
+            });
+
+            alert('บันทึกข้อมูลไปยัง Google Sheet ม.2/1 เรียบร้อยแล้ว!');
+            location.reload();
+
+        } catch (error) {
+            console.error('เกิดข้อผิดพลาดในการบันทึกข้อมูล:', error);
+            alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล. โปรดตรวจสอบ Console หรือการตั้งค่า Apps Script ของคุณ');
+        }
+    }
+</script>
+
+</body>
+</html>

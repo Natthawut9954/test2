@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ระบบเช็คชื่อนักเรียน</title>
+  <style>
+    body {
+      font-family: 'Prompt', sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #3f51b5;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .dropdown-button {
+      background-color: #3f51b5;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1em;
+      font-weight: bold;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      z-index: 1;
+      width: 100%;
+      border-radius: 8px;
+      margin-top: 5px;
+      overflow-y: auto;
+      max-height: 300px;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 10px 15px;
+      color: #333;
+      text-decoration: none;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="container">
+    <h1>📋 ระบบเช็คชื่อนักเรียน</h1>
+    <div class="dropdown">
+      <button class="dropdown-button">🔽 เลือกชั้นเรียน</button>
+      <div class="dropdown-content">
+        <a href="m1.1.html">ม.1/1</a>
+        <a href="m1.2.html">ม.1/2</a>
+        <a href="m2.1.html">ม.2/1</a>
+        <a href="m2.2.html">ม.2/2</a>
+        <a href="m2.3.html">ม.2/3</a>
+        <a href="m3.1.html">ม.3/1</a>
+        <a href="m3.2.html">ม.3/2</a>
+        <a href="m4.1.html">ม.4/1</a>
+        <a href="m4.2.html">ม.4/2</a>
+        <a href="m5.1.html">ม.5/1</a>
+        <a href="m5.2.html">ม.5/2</a>
+        <a href="m6.1.html">ม.6/1</a>
+        <a href="m6.2.html">ม.6/2</a>
+        <a href="m6.3.html">ม.6/3</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
