@@ -102,3 +102,30 @@ body {
   height: 400px; /* กำหนดความสูงที่แน่นอน เช่น 400px หรือปรับตามที่ต้องการ */
   max-height: 500px; /* สามารถจำกัดความสูงสูงสุดได้ด้วย */
 }
+#attendanceChart {
+  width: 100% !important; /* ให้แน่ใจว่ากว้างเต็ม container */
+  height: 400px; /* กำหนดความสูงที่แน่นอน เช่น 400px หรือปรับตามที่ต้องการ */
+  max-height: 500px; /* สามารถจำกัดความสูงสูงสุดได้ด้วย */
+}
+/* ... โค้ด CSS อื่นๆ ของคุณ ... */
+
+/* สไตล์สำหรับกราฟ */
+.chart-container {
+  max-width: 900px;
+  width: 100%;
+  background: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* เพิ่มหรือแก้ไขส่วนนี้สำหรับ canvas ทั้งหมด */
+#attendanceChart,
+#doughnutChart, /* เพิ่มส่วนนี้ */
+#lineChart {     /* เพิ่มส่วนนี้ */
+  width: 100% !important; /* ให้แน่ใจว่ากว้างเต็ม container */
+  height: 400px; /* กำหนดความสูงที่แน่นอน เช่น 400px หรือปรับตามที่ต้องการ */
+  max-height: 500px; /* สามารถจำกัดความสูงสูงสุดได้ด้วย */
+}
