@@ -100,14 +100,35 @@ body {
 }
 
 .back-button {
-    background-color: var(--secondary-color);
-    color: var(--light-text-color);
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #007bff;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1.1em;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    z-index: 1000;
+    /* --- Add these lines for better width control --- */
+    min-width: 150px; /* Ensure a minimum width */
+    max-width: 200px; /* Limit maximum width on larger screens */
+    text-align: center; /* Center the text if the button becomes wider than its content */
+    /* ------------------------------------------------ */
 }
 
 .back-button:hover {
-    background-color: #e68a00;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    background-color: #0056b3;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+}
+
+.back-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
 }
 
 .excel-button {
@@ -326,5 +347,55 @@ table td:nth-child(3) {
         font-size: 0.75em;
         padding: 5px 6px;
         width: 70px; 
+    }
+}
+/* ... โค้ด CSS ที่มีอยู่ของคุณ ... */
+
+/* Mobile Specific Styles for the back-button */
+@media screen and (max-width: 768px) {
+    .back-button {
+        bottom: 20px; /* ลดระยะห่างจากขอบล่าง */
+        right: 20px;  /* ลดระยะห่างจากขอบขวา */
+        padding: 12px 20px; /* ลดขนาด padding เล็กน้อย */
+        font-size: 0.95em; /* ลดขนาด font เล็กน้อย */
+        /* อาจพิจารณาเปลี่ยน box-shadow ให้เล็กลงด้วยก็ได้ */
+        box-shadow: 0 3px 8px rgba(0, 123, 255, 0.25);
+    }
+
+    .back-button:hover {
+        transform: translateY(-2px); /* ลดการยกขึ้นเล็กน้อยเมื่อ hover */
+        box-shadow: 0 4px 10px rgba(0, 123, 255, 0.35);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .back-button {
+        bottom: 15px; /* ลดระยะห่างจากขอบล่างอีก */
+        right: 15px;  /* ลดระยะห่างจากขอบขวาอีก */
+        padding: 10px 18px; /* ลดขนาด padding อีก */
+        font-size: 0.9em; /* ลดขนาด font อีก */
+        border-radius: 40px; /* ปรับให้ดูเล็กลงตามสัดส่วน */
+    }
+}
+@media screen and (max-width: 768px) {
+    .back-button {
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 20px;
+        font-size: 0.95em;
+        box-shadow: 0 3px 8px rgba(0, 123, 255, 0.25);
+        min-width: unset; /* Remove min-width on small screens for flexibility */
+        max-width: 180px; /* Adjust max-width for tablets */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .back-button {
+        bottom: 15px;
+        right: 15px;
+        padding: 10px 18px;
+        font-size: 0.9em;
+        border-radius: 40px;
+        max-width: 150px; /* Adjust max-width for smaller phones */
     }
 }
