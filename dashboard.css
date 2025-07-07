@@ -1,131 +1,163 @@
 body {
-      font-family: 'Prompt', sans-serif;
-      background-color: #f5f7fa;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-    }
-    .container {
-      max-width: 900px;
-      width: 100%;
-      background: #fff;
-      border-radius: 10px;
-      padding: 30px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      text-align: center;
-      margin-bottom: 30px; /* เพิ่มระยะห่างด้านล่าง */
-    }
-    h1 {
-      color: #2c3e50;
-      margin-bottom: 20px;
-    }
-    .controls {
-      margin-bottom: 30px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-    .controls label, .controls select, .controls input[type="date"] {
-      font-size: 1.1em;
-      padding: 8px 12px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      background-color: #fff;
-      font-family: 'Prompt', sans-serif;
-      cursor: pointer;
-    }
-    .loading, .error-message, .no-data {
-      margin-top: 20px;
-      font-size: 1.1em;
-      color: #555;
-    }
-    .error-message {
-      color: red;
-    }
-    .no-data {
-        color: #777;
-        font-style: italic;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 12px;
-      text-align: center;
-    }
-    th {
-      background-color: #e0f2f7;
-      color: #2c3e50;
-      font-weight: bold;
-    }
-    tr:nth-child(even) {
-      background-color: #f2f2f2;
-    }
-    tr:hover {
-      background-color: #e9e9e9;
-    }
+  font-family: 'Prompt', sans-serif;
+  background-color: #f5f7fa;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  line-height: 1.6; /* Improves readability */
+  color: #333; /* Default text color */
+}
 
-    /* สไตล์สำหรับกราฟ */
-    .chart-container {
-      max-width: 900px;
-      width: 100%;
-      background: #fff;
-      border-radius: 10px;
-      padding: 30px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      margin-top: 20px;
-      text-align: center;
-    }
-    /* สไตล์สำหรับกราฟ */
+.container {
+  max-width: 900px;
+  width: 100%;
+  background: #fff;
+  border-radius: 12px; /* Slightly more rounded corners */
+  padding: 30px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08); /* More prominent shadow */
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+h1 {
+  color: #2c3e50;
+  margin-bottom: 25px; /* Increased margin */
+  font-size: 2.2em; /* Slightly larger heading */
+  font-weight: 700; /* Bolder heading */
+}
+
+.controls {
+  margin-bottom: 35px; /* Increased margin */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px; /* Increased gap */
+  flex-wrap: wrap;
+}
+
+.controls label,
+.controls select,
+.controls input[type="date"] {
+  font-size: 1.1em;
+  padding: 10px 15px; /* Slightly more padding */
+  border-radius: 8px; /* More rounded inputs */
+  border: 1px solid #c0d3eb; /* Softer border color */
+  background-color: #fcfdff; /* Off-white background */
+  font-family: 'Prompt', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transitions */
+}
+
+.controls select:hover,
+.controls input[type="date"]:hover {
+  border-color: #a0c0e0; /* Hover effect for borders */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Subtle shadow on hover */
+}
+
+.loading,
+.error-message,
+.no-data {
+  margin-top: 25px; /* Increased margin */
+  font-size: 1.15em; /* Slightly larger font */
+  color: #555;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.error-message {
+  color: #d9534f; /* More distinct red for errors */
+  background-color: #ffebeb;
+}
+
+.no-data {
+  color: #777;
+  font-style: italic;
+  background-color: #f0f4f7;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 25px; /* Increased margin */
+  border-radius: 10px; /* Apply border-radius to the table */
+  overflow: hidden; /* Ensures border-radius is visible */
+}
+
+th,
+td {
+  border: 1px solid #e0eaf3; /* Lighter border for table cells */
+  padding: 15px; /* More padding in cells */
+  text-align: center;
+  font-size: 1.05em; /* Slightly larger text in table */
+}
+
+th {
+  background-color: #e0f2f7;
+  color: #2c3e50;
+  font-weight: 600; /* Slightly less bold */
+  text-transform: uppercase; /* Uppercase for headers */
+  letter-spacing: 0.5px; /* Spacing for letters */
+}
+
+tr:nth-child(even) {
+  background-color: #f8fcfd; /* Lighter alternate row background */
+}
+
+tr:hover {
+  background-color: #eef7fc; /* More subtle hover effect */
+  cursor: pointer;
+}
+
+/* Styles for Charts */
 .chart-container {
   max-width: 900px;
   width: 100%;
   background: #fff;
-  border-radius: 10px;
+  border-radius: 12px; /* Consistent rounded corners */
   padding: 30px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  margin-top: 20px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08); /* Consistent shadow */
+  margin-top: 30px; /* Increased margin */
   text-align: center;
 }
 
-/* เพิ่มหรือแก้ไขส่วนนี้ */
-#attendanceChart {
-  width: 100% !important; /* ให้แน่ใจว่ากว้างเต็ม container */
-  height: 400px; /* กำหนดความสูงที่แน่นอน เช่น 400px หรือปรับตามที่ต้องการ */
-  max-height: 500px; /* สามารถจำกัดความสูงสูงสุดได้ด้วย */
-}
-#attendanceChart {
-  width: 100% !important; /* ให้แน่ใจว่ากว้างเต็ม container */
-  height: 400px; /* กำหนดความสูงที่แน่นอน เช่น 400px หรือปรับตามที่ต้องการ */
-  max-height: 500px; /* สามารถจำกัดความสูงสูงสุดได้ด้วย */
-}
-/* ... โค้ด CSS อื่นๆ ของคุณ ... */
-
-/* สไตล์สำหรับกราฟ */
-.chart-container {
-  max-width: 900px;
-  width: 100%;
-  background: #fff;
-  border-radius: 10px;
-  padding: 30px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  margin-top: 20px;
-  text-align: center;
-}
-
-/* เพิ่มหรือแก้ไขส่วนนี้สำหรับ canvas ทั้งหมด */
 #attendanceChart,
-#doughnutChart, /* เพิ่มส่วนนี้ */
-#lineChart {     /* เพิ่มส่วนนี้ */
-  width: 100% !important; /* ให้แน่ใจว่ากว้างเต็ม container */
-  height: 400px; /* กำหนดความสูงที่แน่นอน เช่น 400px หรือปรับตามที่ต้องการ */
-  max-height: 500px; /* สามารถจำกัดความสูงสูงสุดได้ด้วย */
+#doughnutChart,
+#lineChart {
+  width: 100% !important;
+  height: 400px; /* Keep consistent height */
+  max-height: 500px;
+  margin: 0 auto; /* Center the canvas within its container */
+  display: block; /* Ensures margin auto works */
+}
+
+.btn-history {
+  position: fixed; /* ทำให้ปุ่มอยู่กับที่เมื่อ scroll */
+    bottom: 30px; /* ห่างจากขอบล่าง 30px */
+    right: 30px; /* ห่างจากขอบขวา 30px */
+    background-color: #007bff; /* สีพื้นหลังของปุ่ม */
+    color: white; /* สีข้อความ */
+    padding: 15px 25px; /* ขนาด padding */
+    border-radius: 50px; /* ทำให้ปุ่มเป็นวงกลมรี */
+    text-decoration: none; /* ไม่มีขีดเส้นใต้ */
+    font-size: 1.1em; /* ขนาดตัวอักษร */
+    font-weight: bold; /* ตัวหนา */
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3); /* เงา */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* transition effect */
+    z-index: 1000; /* ให้ปุ่มอยู่ด้านบนสุด */
+}
+
+.btn-history:hover {
+  background-color: #0056b3; /* สีเข้มขึ้นเมื่อ hover */
+    transform: translateY(-3px); /* ยกขึ้นเล็กน้อยเมื่อ hover */
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4); /* เงาเข้มขึ้นเมื่อ hover */
+}
+
+.btn-history:active {
+   transform: translateY(0); /* กลับสู่ตำแหน่งเดิมเมื่อคลิก */
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2); /* เงาลดลงเมื่อคลิก */
 }
