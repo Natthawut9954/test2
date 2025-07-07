@@ -161,3 +161,34 @@ tr:hover {
    transform: translateY(0); /* กลับสู่ตำแหน่งเดิมเมื่อคลิก */
     box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2); /* เงาลดลงเมื่อคลิก */
 }
+
+    table th:nth-child(1), table td:nth-child(1) { width: 35px; }
+    /* ปรับ min-width สำหรับมือถือให้มีความยืดหยุ่นมากขึ้นเล็กน้อย */
+    table th:nth-child(2), table td:nth-child(2) { min-width: 80px; } 
+    table th:nth-child(3), table td:nth-child(3) { width: 100px; } 
+
+    .status-buttons {
+        gap: 3px;
+    }
+
+    .status-option {
+        padding: 6px 8px;
+        font-size: 0.8em;
+        width: 80px; 
+    }
+
+
+@media screen and (max-width: 480px) {
+    .header h2 {
+        font-size: 1.3em;
+    }
+    .button {
+        font-size: 1em;
+        padding: 12px 10px;
+    }
+    .status-option {
+        font-size: 0.75em;
+        padding: 5px 6px;
+        width: 70px; 
+    }
+}

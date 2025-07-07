@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ระบบเช็คชื่อ ม.2/2</title>
         <link rel="stylesheet" href="class.css">
-    <link href="https://fonts.googleapis.com/css2?family=Pormtt&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -79,7 +79,7 @@
                 </tr>
                 <tr data-student-id="5">
                     <td>5</td>
-                    <td>เด็กชาย ปิยวัฒน์ วันดีศรี</td>
+                    <td>เด็กชาย ปิยวัฒน์  วันดีศรี</td>
                     <td>
                         <div class="status-buttons">
                             <div class="status-option" data-status="✅ มา">✅ มา</div>
@@ -283,7 +283,7 @@
                 </tr>
                 <tr data-student-id="22">
                     <td>22</td>
-                    <td>เด็กหญิง อริสรา แย้มยิ้ม</td>
+                    <td>เด็กหญิง อริสรา  แย้มยิ้ม</td>
                     <td>
                         <div class="status-buttons">
                             <div class="status-option" data-status="✅ มา">✅ มา</div>
@@ -295,7 +295,7 @@
                 </tr>
                 <tr data-student-id="23">
                     <td>23</td>
-                    <td>เด็กหญิง มณีวรรณ ผลดี</td>
+                    <td>เด็กหญิง มณีวรรณ  ผลดี</td>
                     <td>
                         <div class="status-buttons">
                             <div class="status-option" data-status="✅ มา">✅ มา</div>
@@ -307,7 +307,7 @@
                 </tr>
                 <tr data-student-id="24">
                     <td>24</td>
-                    <td>เด็กหญิง ปิยะวัฒน์ ชยโชติอนันต์</td>
+                    <td>เด็กหญิง ปิยะวัฒน์  ชยโชติอนันต์</td>
                     <td>
                         <div class="status-buttons">
                             <div class="status-option" data-status="✅ มา">✅ มา</div>
@@ -317,13 +317,20 @@
                         </div>
                     </td>
                 </tr>
-            </tbody>
+                </tbody>
         </table>
     </div>
 
     <div class="controls-bottom">
         <button onclick="exportTableToExcel()" class="button excel-button">📄 ส่งออก Excel</button>
         <button onclick="saveToGoogleSheet()" class="button google-sheet-button">📤 บันทึกข้อมูลไปยัง Google Sheet</button>
+    </div>
+</div>
+
+<div id="loadingOverlay">
+    <div class="loading-content">
+        <div class="spinner"></div>
+        <p>กำลังโหลดข้อมูล...</p>
     </div>
 </div>
 
@@ -335,13 +342,10 @@
             const studentId = row.dataset.studentId;
             const statusButtons = row.querySelectorAll('.status-option');
 
-            // Load status from localStorage for M.2/2 (using a distinct key)
+            // โหลดสถานะจาก localStorage สำหรับ ม.2/2
             const savedStatus = localStorage.getItem(`status_M2_2_${studentId}`);
             if (savedStatus) {
-                // Remove 'active' class and color classes from all buttons in the row
                 statusButtons.forEach(btn => btn.classList.remove('active', 'status-มา', 'status-ขาด', 'status-ลา', 'status-มาสาย'));
-                
-                // Add 'active' class and color class to the button corresponding to the saved status
                 const activeBtn = row.querySelector(`.status-option[data-status="${savedStatus}"]`);
                 if (activeBtn) {
                     activeBtn.classList.add('active');
@@ -349,50 +353,46 @@
                 }
             }
 
-            // Add Event Listener to each status button in the row
+            // เพิ่ม Event Listener ให้ปุ่มสถานะแต่ละปุ่ม
             statusButtons.forEach(button => {
                 button.addEventListener('click', (event) => {
                     const currentStatus = event.target.dataset.status;
                     const currentRow = event.target.closest('tr');
                     const currentStudentId = currentRow.dataset.studentId;
 
-                    // Remove 'active' class and colors from all buttons in the same row
                     currentRow.querySelectorAll('.status-option').forEach(btn => {
                         btn.classList.remove('active', 'status-มา', 'status-ขาด', 'status-ลา', 'status-มาสาย');
                     });
 
-                    // Add 'active' class and color to the selected button
                     event.target.classList.add('active');
                     updateStatusButtonClass(event.target, currentStatus);
 
-                    // Save the current status to localStorage
+                    // บันทึกสถานะลง localStorage สำหรับ ม.2/2
                     localStorage.setItem(`status_M2_2_${currentStudentId}`, currentStatus);
                 });
             });
         });
 
-        // Instant search functionality for student names
+        // ค้นหาชื่อนักเรียนแบบทันที
         document.getElementById('searchInput').addEventListener('input', function() {
             const searchText = this.value.toLowerCase();
             const allRows = document.querySelectorAll("#attendanceTable tbody tr");
 
             allRows.forEach(row => {
-                const name = row.querySelector("td:nth-child(2)").textContent.toLowerCase(); // Get student name from the second column
+                const name = row.querySelector("td:nth-child(2)").textContent.toLowerCase();
                 if (name.includes(searchText)) {
-                    row.style.display = ""; // Show row if name matches search text
+                    row.style.display = "";
                 } else {
-                    row.style.display = "none"; // Hide row otherwise
+                    row.style.display = "none";
                 }
             });
         });
     });
 
-    // Helper function to apply appropriate CSS class based on status
+    // ฟังก์ชันช่วยในการจัดการคลาสสีของปุ่มสถานะ
     function updateStatusButtonClass(button, status) {
-        // Remove all status-related classes first
         button.classList.remove('status-มา', 'status-ขาด', 'status-ลา', 'status-มาสาย');
 
-        // Add the specific class based on the status
         switch (status) {
             case '✅ มา':
                 button.classList.add('status-มา');
@@ -409,79 +409,94 @@
         }
     }
 
-    // Function to export attendance data to an Excel file
     function exportTableToExcel() {
         const table = document.querySelector("#attendanceTable");
         const rows = table.querySelectorAll("tbody tr");
 
-        // Define header for the Excel file
         const data = [["ลำดับ", "ชื่อ - สกุล", "สถานะ"]];
 
-        // Iterate over each row to collect data
         rows.forEach(row => {
-            const index = row.querySelector("td:nth-child(1)").textContent.trim(); // Student index
-            const name = row.querySelector("td:nth-child(2)").textContent.trim(); // Student name
-            // Get the text content of the active status button
+            const index = row.querySelector("td:nth-child(1)").textContent.trim();
+            const name = row.querySelector("td:nth-child(2)").textContent.trim();
             const activeStatusButton = row.querySelector(".status-option.active");
-            const status = activeStatusButton ? activeStatusButton.dataset.status : ""; // Get status from data-status attribute
+            const status = activeStatusButton ? activeStatusButton.dataset.status : "";
 
-            data.push([index, name, status]); // Add row data to the array
+            data.push([index, name, status]);
         });
 
-        // Create a new worksheet and workbook using XLSX library
         const worksheet = XLSX.utils.aoa_to_sheet(data);
         const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, "เช็คชื่อ ม.2.2"); // Sheet name
+        XLSX.utils.book_append_sheet(workbook, worksheet, "เช็คชื่อ ม.2.2"); // Sheet name for M.2/2
 
-        // Write the workbook to an Excel file
-        XLSX.writeFile(workbook, "รายงานเช็คชื่อ ม.2-2.xlsx"); // File name
+        XLSX.writeFile(workbook, "รายงานเช็คชื่อ ม.2-2.xlsx"); // File name for M.2/2
     }
 
-    // Function to save attendance data to a Google Sheet via Apps Script Web App
     async function saveToGoogleSheet() {
-        // **Replace with the Web app URL you get from Apps Script Deploy for M.2/2**
-        // This URL is specific to your Google Apps Script Web App for M.2/2
-        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbx339g1fBLZmX91XmdOFAEKisJIYs7-_wA7LvlDE3Vbby2a46g4csHsj8T4SHi0AgUK/exec'; // *** โปรดเปลี่ยน URL นี้! ***
-
+        // Get reference to the loading overlay
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        
+        // **ส่วนนี้สำคัญมาก: ต้องประกาศ 'table' และ 'rows' ก่อนนำไปใช้**
         const table = document.querySelector("#attendanceTable");
         const rows = table.querySelectorAll("tbody tr");
 
+        // --- โค้ดสำหรับตรวจสอบสถานะที่ยังไม่ถูกเลือก ---
+        let allStatusesSelected = true;
+        for (const row of rows) {
+            const activeStatusButton = row.querySelector(".status-option.active");
+            if (!activeStatusButton) {
+                allStatusesSelected = false;
+                break; 
+            }
+        }
+
+        if (!allStatusesSelected) {
+            alert('กรุณาเลือกสถานะของนักเรียนทุกคนก่อนบันทึกข้อมูล.');
+            return; 
+        }
+        // --- สิ้นสุดโค้ดส่วนตรวจสอบ ---
+
+        // แสดง Loading Overlay หลังจากตรวจสอบความถูกต้องแล้ว
+        loadingOverlay.style.display = 'flex'; 
+
+        // **แทนที่ด้วย Web app URL ที่คุณได้จาก Apps Script Deploy สำหรับชีท ม.2/2**
+        // (URL นี้ควรจะเป็นคนละอันกับของ ม.2/1 ถ้าคุณต้องการแยกข้อมูล)
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzruvweS5tg187efuQijzZoRDf19TK8u2XGb5Yvl97CpkZP6lvIaV62Frkk5KKjIMzz/exec'; // This URL might need to be specific for M.2/2
+
         const dataToSave = [];
-        // Iterate over each row to collect data for saving
         rows.forEach(row => {
             const index = row.querySelector("td:nth-child(1)").textContent.trim();
             const name = row.querySelector("td:nth-child(2)").textContent.trim();
             
-            // Read status from the 'active' button
             const activeStatusButton = row.querySelector(".status-option.active");
             const status = activeStatusButton ? activeStatusButton.dataset.status : "";
             
-            dataToSave.push({ index, name, status }); // Prepare data object for each student
+            dataToSave.push({ index, name, status }); 
         });
 
         try {
-            // Send data to Google Apps Script Web App
             const response = await fetch(WEB_APP_URL, {
                 method: 'POST',
-                mode: 'no-cors', // Important for Apps Script to avoid CORS (Cross-Origin Resource Sharing) error
+                mode: 'no-cors', 
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(dataToSave), // Convert data to JSON string
-            });
-
-            // Clear local storage for all students after successful save
-            rows.forEach(row => {
-                const studentId = row.dataset.studentId;
-                localStorage.removeItem(`status_M2_2_${studentId}`); // Clear local storage for M.2/2
+                body: JSON.stringify(dataToSave),
             });
             
-            alert('บันทึกข้อมูลไปยัง Google Sheet ม.2/2 เรียบร้อยแล้ว!'); // User notification
-            location.reload(); // Reload the page to reset attendance selections
+            rows.forEach(row => {
+                const studentId = row.dataset.studentId;
+                // แก้ไขให้ลบ key ที่ถูกต้อง
+                localStorage.removeItem(`status_M2_2_${studentId}`); // Clear local storage for M.2/2
+            });
+
+            alert('บันทึกข้อมูลไปยัง Google Sheet ม.2/2 เรียบร้อยแล้ว!');
+            location.reload();
 
         } catch (error) {
-            console.error('เกิดข้อผิดพลาดในการบันทึกข้อมูล:', error); // Log error to console
-            alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล. โปรดตรวจสอบ Console หรือการตั้งค่า Apps Script ของคุณ'); // User notification for error
+            console.error('เกิดข้อผิดพลาดในการบันทึกข้อมูล:', error);
+            alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล. โปรดตรวจสอบ Console หรือการตั้งค่า Apps Script ของคุณ');
+        } finally {
+            loadingOverlay.style.display = 'none'; // ซ่อน Loading Overlay เสมอเมื่อเสร็จสิ้น
         }
     }
 </script>

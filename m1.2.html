@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ระบบเช็คชื่อนักเรียน ม.1/2</title>
     <link rel="stylesheet" href="class.css">
-    <link href="https://fonts.googleapis.com/css2?family=Pormtt&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -365,13 +365,20 @@
                         </div>
                     </td>
                 </tr>
-            </tbody>
+                </tbody>
         </table>
     </div>
 
     <div class="controls-bottom">
         <button onclick="exportTableToExcel()" class="button excel-button">📄 ส่งออก Excel</button>
         <button onclick="saveToGoogleSheet()" class="button google-sheet-button">📤 บันทึกข้อมูลไปยัง Google Sheet</button>
+    </div>
+</div>
+
+<div id="loadingOverlay">
+    <div class="loading-content">
+        <div class="spinner"></div>
+        <p>กำลังโหลดข้อมูล...</p>
     </div>
 </div>
 
@@ -432,23 +439,23 @@
 
     // ฟังก์ชันช่วยในการจัดการคลาสสีของปุ่มสถานะ
     function updateStatusButtonClass(button, status) {
-    button.classList.remove('status-มา', 'status-ขาด', 'status-ลา', 'status-มาสาย');
+        button.classList.remove('status-มา', 'status-ขาด', 'status-ลา', 'status-มาสาย');
 
-    switch (status) {
-        case '✅ มา':
-            button.classList.add('status-มา');
-            break;
-        case '❌ ขาด':
-            button.classList.add('status-ขาด');
-            break;
-        case '📝 ลา':
-            button.classList.add('status-ลา');
-            break;
-        case '⏰ มาสาย':
-            button.classList.add('status-มาสาย');
-            break;
+        switch (status) {
+            case '✅ มา':
+                button.classList.add('status-มา');
+                break;
+            case '❌ ขาด':
+                button.classList.add('status-ขาด');
+                break;
+            case '📝 ลา':
+                button.classList.add('status-ลา');
+                break;
+            case '⏰ มาสาย':
+                button.classList.add('status-มาสาย');
+                break;
+        }
     }
-}
 
     function exportTableToExcel() {
         const table = document.querySelector("#attendanceTable");
@@ -473,48 +480,70 @@
     }
 
     async function saveToGoogleSheet() {
-        // **แทนที่ด้วย Web app URL ที่คุณได้จาก Apps Script Deploy สำหรับชีท ม.1/2**
-        // (URL นี้ควรจะเป็นคนละอันกับของ ม.1/1 ถ้าคุณต้องการแยกข้อมูล)
-        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzfUXNsrozC5qFkVOwOkQo9ZqtFklN00ElnnMT6YxWEjXMDQ949wom-n4KYU47eoKoS/exec'; // <<-- อย่าลืมเปลี่ยนตรงนี้!
-
+        // Get reference to the loading overlay
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        
+        // **ส่วนนี้สำคัญมาก: ต้องประกาศ 'table' และ 'rows' ก่อนนำไปใช้**
         const table = document.querySelector("#attendanceTable");
         const rows = table.querySelectorAll("tbody tr");
+
+        // --- โค้ดสำหรับตรวจสอบสถานะที่ยังไม่ถูกเลือก ---
+        let allStatusesSelected = true;
+        for (const row of rows) {
+            const activeStatusButton = row.querySelector(".status-option.active");
+            if (!activeStatusButton) {
+                allStatusesSelected = false;
+                break; 
+            }
+        }
+
+        if (!allStatusesSelected) {
+            alert('กรุณาเลือกสถานะของนักเรียนทุกคนก่อนบันทึกข้อมูล.');
+            return; 
+        }
+        // --- สิ้นสุดโค้ดส่วนตรวจสอบ ---
+
+        // แสดง Loading Overlay หลังจากตรวจสอบความถูกต้องแล้ว
+        loadingOverlay.style.display = 'flex'; 
+
+        // **แทนที่ด้วย Web app URL ที่คุณได้จาก Apps Script Deploy**
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwyiT3lC2C641pOESmJaa845MihWmmLA7RPEX9Y47eH7ulj8Gp8f6zSqcZBWZFd3kY5/exec';
 
         const dataToSave = [];
         rows.forEach(row => {
             const index = row.querySelector("td:nth-child(1)").textContent.trim();
             const name = row.querySelector("td:nth-child(2)").textContent.trim();
+            
             const activeStatusButton = row.querySelector(".status-option.active");
             const status = activeStatusButton ? activeStatusButton.dataset.status : "";
-
-            dataToSave.push({ index, name, status });
+            
+            dataToSave.push({ index, name, status }); 
         });
 
         try {
             const response = await fetch(WEB_APP_URL, {
                 method: 'POST',
-                mode: 'no-cors',
+                mode: 'no-cors', 
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(dataToSave),
             });
-
-            alert('บันทึกข้อมูลไปยัง Google Sheet ม.1/2 เรียบร้อยแล้ว!');
             
-            // Reset status buttons and clear local storage after successful save
             rows.forEach(row => {
                 const studentId = row.dataset.studentId;
-                const statusButtons = row.querySelectorAll('.status-option');
-                statusButtons.forEach(btn => btn.classList.remove('active', 'status-มา', 'status-ขาด', 'status-ลา', 'status-มาสาย'));
-                localStorage.removeItem(`status_M1_2_${studentId}`); // Clear the saved status for this student
+                // แก้ไขให้ลบ key ที่ถูกต้อง
+                localStorage.removeItem(`status_M1_2_${studentId}`);
             });
-            
-            location.reload(); // Reload to reflect the cleared status and ensure a clean state
+
+            alert('บันทึกข้อมูลไปยัง Google Sheet เรียบร้อยแล้ว!');
+            location.reload();
 
         } catch (error) {
             console.error('เกิดข้อผิดพลาดในการบันทึกข้อมูล:', error);
             alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล. โปรดตรวจสอบ Console หรือการตั้งค่า Apps Script ของคุณ');
+        } finally {
+            loadingOverlay.style.display = 'none'; // ซ่อน Loading Overlay เสมอเมื่อเสร็จสิ้น
         }
     }
 </script>
